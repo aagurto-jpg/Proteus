@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>AXIS-Y: Proteus</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22n%22%20cx%3D%2238%25%22%20cy%3D%2234%25%22%20r%3D%2270%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fff%22/%3E%3Cstop%20offset%3D%22.3%22%20stop-color%3D%22%23ffb3d4%22/%3E%3Cstop%20offset%3D%22.7%22%20stop-color%3D%22%23ff4f9a%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23c2185b%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2318b4d4%22%20stroke-width%3D%227%22%3E%3Cellipse%20cx%3D%2250%22%20cy%3D%2250%22%20rx%3D%2244%22%20ry%3D%2216%22/%3E%3Cellipse%20cx%3D%2250%22%20cy%3D%2250%22%20rx%3D%2244%22%20ry%3D%2216%22%20transform%3D%22rotate%2860%2050%2050%29%22/%3E%3Cellipse%20cx%3D%2250%22%20cy%3D%2250%22%20rx%3D%2244%22%20ry%3D%2216%22%20transform%3D%22rotate%28120%2050%2050%29%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2215%22%20fill%3D%22url%28%23n%29%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Nunito:wght@600;800;900&family=JetBrains+Mono:wght@700&display=swap">
+<style>
+:root{--bg:#EDF2F8;--surface:#fff;--ink:#0F1A2B;--muted:#55657A;--line:#D3DDEA;--brand:#1257B8;--pop:#FFC21A;--bad:#E5383B;--tA:#2E63F0;--tB:#14A04F;--tC:#EE7F00;--tD:#E0315C}
+@media (prefers-color-scheme:dark){:root{--bg:#0A111C;--surface:#121C2B;--ink:#E6EEF8;--muted:#9AAAC0;--line:#24344A;--brand:#5AA2FF;--pop:#FFCB3D;--bad:#FF5C5F;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.credit{background:var(--ink);color:var(--bg);font-size:12.5px;font-weight:800;letter-spacing:.04em;text-align:center;padding:5px 16px;padding-top:calc(5px + env(safe-area-inset-top,0px))}
+main{flex:1;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px))}
+.box{width:100%;max-width:440px;background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 10px 30px -14px rgba(0,0,0,.35)}
+.stripes{display:flex;gap:6px;margin-bottom:18px}.stripes i{flex:1;height:8px;border-radius:9px}
+h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:32px;line-height:1.05;margin:0 0 6px}
+p{margin:0 0 18px;color:var(--muted);font-weight:600}
+label{font-weight:900;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+input[type=text]{width:100%;margin:6px 0 12px;font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:700;font-size:20px;letter-spacing:.06em;text-transform:uppercase;padding:14px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+input[type=text]:focus{outline:3px solid var(--pop);border-color:var(--ink)}
+.rem{display:flex;gap:8px;align-items:center;font-weight:700;margin-bottom:16px}
+.rem input{width:20px;height:20px;accent-color:var(--brand)}
+button{width:100%;border:0;border-radius:14px;padding:15px;font:900 18px Nunito,system-ui,sans-serif;background:var(--brand);color:#fff;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+button:disabled{opacity:.6}
+.msg{min-height:24px;margin-top:12px;font-weight:800;color:var(--bad)}
+.brandrow{display:flex;align-items:center;gap:16px;margin:4px 0 16px}
+.brandrow h1{margin:0;font-size:clamp(21px,6.6vw,38px);letter-spacing:-.02em;white-space:nowrap}
+@media (max-width:400px){.brandrow{gap:12px}.lmoon{width:62px;height:62px}.lmoon .core{width:44px;height:44px}.lmoon .core::before{left:23px;top:9px;width:10px;height:10px}.lmoon .core::after{left:10px;top:24px}.lmoon .core i{left:26px;top:28px}}
+.brandrow .sub{margin-top:4px;font-weight:900;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand)}
+.atom{flex:none;width:76px;height:76px;display:inline-block;filter:drop-shadow(0 0 8px rgba(34,195,230,.6));animation:atomBuzz 3.2s ease-in-out infinite}.atom svg{width:100%;height:100%;overflow:visible}.atom .orb{fill:none;stroke:#22c3e6;stroke-width:3.2}.atom .el{fill:#fff;stroke:#0aa3c7;stroke-width:2.2}.atom .nuc{animation:atomGlow 2.6s ease-in-out infinite;transform-origin:50px 50px}@keyframes atomGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(255,90,160,.65));transform:scale(1)}50%{filter:drop-shadow(0 0 12px rgba(255,90,160,1));transform:scale(1.1)}}@keyframes atomBuzz{0%,76%,100%{transform:none}78%{transform:translate(-1.5px,0) rotate(-7deg)}80%{transform:translate(1.5px,-1px) rotate(7deg)}82%{transform:translate(-1.5px,1px) rotate(-5deg)}84%{transform:translate(1px,0) rotate(4deg)}88%{transform:none}}@media (max-width:400px){.atom{width:62px;height:62px}}@media (prefers-reduced-motion:reduce){.atom,.atom .nuc{animation:none}}
+.lmoon .orbit{position:absolute;inset:0;border-radius:50%;border:2.5px dashed rgba(120,145,235,.75);animation:lOrbit 9s linear infinite}
+.lmoon .orbit i{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--tA);left:-6px;top:50%;margin-top:-5.5px;box-shadow:0 0 8px rgba(46,99,240,.7)}
+.lmoon .core{position:relative;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff 0%,#eef3ff 22%,#c6d3f4 52%,#8fa2dd 80%,#6f83c8 100%);box-shadow:0 0 16px 4px rgba(150,175,255,.6),inset -8px -7px 14px rgba(70,85,160,.45);animation:lGlow 3.2s ease-in-out infinite}
+.lmoon .core::before,.lmoon .core::after,.lmoon .core i{content:"";position:absolute;border-radius:50%;background:rgba(95,112,180,.32);box-shadow:inset 1px 1px 2px rgba(60,70,140,.35)}
+.lmoon .core::before{width:12px;height:12px;left:28px;top:11px}.lmoon .core::after{width:8px;height:8px;left:13px;top:30px}.lmoon .core i{width:6px;height:6px;left:32px;top:34px}
+@keyframes lOrbit{to{transform:rotate(360deg)}}
+@keyframes lGlow{0%,100%{box-shadow:0 0 14px 3px rgba(150,175,255,.5),inset -8px -7px 14px rgba(70,85,160,.45);filter:brightness(1)}50%{box-shadow:0 0 28px 9px rgba(150,175,255,.8),inset -8px -7px 14px rgba(70,85,160,.45);filter:brightness(1.12)}}
+@media (prefers-reduced-motion:reduce){.lmoon .orbit,.lmoon .core{animation:none}}
+.foot{margin-top:14px;font-size:13px;color:var(--muted);font-weight:700}
+</style>
+</head>
+<body>
+<div class="credit">Developed by Mr. A. Agurto, 2026 V1.0</div>
+<main>
+ <form class="box" id="f" autocomplete="off">
+  <div class="stripes"><i style="background:var(--tA)"></i><i style="background:var(--tB)"></i><i style="background:var(--tC)"></i><i style="background:var(--tD)"></i></div>
+  <div class="brandrow"><span class="atom big" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><radialGradient id="nucG" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#ffb3d4"/><stop offset=".7" stop-color="#ff4f9a"/><stop offset="1" stop-color="#c2185b"/></radialGradient></defs><g><ellipse class="orb" cx="50" cy="50" rx="44" ry="16"/><circle class="el" r="5.5"><animateMotion dur="2.4s" repeatCount="indefinite" path="M94,50 A44,16 0 1,1 6,50 A44,16 0 1,1 94,50"/></circle></g><g transform="rotate(60 50 50)"><ellipse class="orb" cx="50" cy="50" rx="44" ry="16"/><circle class="el" r="5.5"><animateMotion dur="3.1s" repeatCount="indefinite" path="M6,50 A44,16 0 1,1 94,50 A44,16 0 1,1 6,50"/></circle></g><g transform="rotate(120 50 50)"><ellipse class="orb" cx="50" cy="50" rx="44" ry="16"/><circle class="el" r="5.5"><animateMotion dur="2.7s" repeatCount="indefinite" path="M94,50 A44,16 0 1,0 6,50 A44,16 0 1,0 94,50"/></circle></g><circle class="nuc" cx="50" cy="50" r="13" fill="url(#nucG)"/><circle cx="45" cy="45" r="3.2" fill="#fff"/></svg></span><div><h1>AXIS-Y: Proteus</h1><div class="sub">IB Chemistry · SL &amp; HL</div></div></div>
+  <p>Chemistry SL &amp; HL exam preparation. Enter your personal access code.<br>Preparación para el examen de Química NM y NS. Ingresa tu código de acceso.</p>
+  <label for="code">Access code · Código de acceso</label>
+  <input type="text" id="code" placeholder="NAME-XXXX-XXXX-XXXX" spellcheck="false" autocapitalize="characters">
+  <div class="rem"><input type="checkbox" id="rem" checked><label for="rem" style="text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink)">Remember me · Recordarme en este dispositivo</label></div>
+  <button id="go" type="submit">Unlock · Entrar</button>
+  <div class="msg" id="msg" role="status"></div>
+  <div class="foot">No code? Contact Mr. A. Agurto. · ¿No tienes código? Contacta a Mr. A. Agurto.</div>
+ </form>
+</main>
+<script>
+var CFG=/*CFG-START*/{"salt":"8eBRIlAowcPTYaK7B9NnWw==","iter":250000,"iv":"y5TN/Vu5I9hy08f8","parts":["app-part1.bin"],"ver":"1792700753844","e":[{"w":"UJ3BCa5t4k+KssSTwGTe0LL8sH9q5kmZx9WlnitAQAHpGUCiRWeMEZN0H3j2y6iS1D9Tq1ZYtrx+f+SA","x":0,"a":1,"m":"u5ZYaflcOhBEfKK8wxyMybPWkFYX82OyE+8e9G+ly7cbq4dXIFbbM5T8GE1lSOmTbdgPTRPdofcApgzf2bq/JmC9uiK9hw8PY/zuDnwNq3NgWUFIwt17sVtFJQ=="},{"w":"feaG1h2Z/6Eo2zOZiNza2GcyI9txaVpzabimZSga2zmRRUag3UhwSH2w1Oj1vYgDVcj7t2UKDpPH9U1p","x":1793354340000,"a":0,"m":"qXoRFwPaRQyyjih0k3F1Ngrojhm9Vme4ECHQvZliJ1ylot7ZCNmhJx71lTkmHWmserYtuzCiOqLRoTS/zjhpsk3LjvX6vQvnehqVXFzPGXw="}]}/*CFG-END*/;
+(function(){
+var KEY="proteusChem.code";
+var Admin=(function(){
+ var C=crypto.subtle,TE=new TextEncoder(),TD=new TextDecoder(),K=null,list=[],SRC=null,dirty=false,busy=false,ov=null;
+ var TK="proteusChem.ghtoken",RK="proteusChem.ghrepo:"+location.pathname.split("/")[1],MK1="/*CFG-"+"START*/",MK2="/*CFG-"+"END*/";
+ function b64(a){a=new Uint8Array(a);var s="";for(var i=0;i<a.length;i+=8192)s+=String.fromCharCode.apply(null,a.subarray(i,i+8192));return btoa(s);}
+ function cat(a,b){var r=new Uint8Array(a.length+b.byteLength);r.set(a);r.set(new Uint8Array(b),a.length);return r;}
+ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+ function rnd(n){var A="ABCDEFGHJKMNPQRSTUVWXYZ23456789",v=crypto.getRandomValues(new Uint8Array(n)),s="";for(var i=0;i<n;i++)s+=A[v[i]%A.length];return s;}
+ function makeCode(name){var p=norm((name||"").split(/\s+/)[0]).slice(0,8)||"STUDENT";return p+"-"+rnd(4)+"-"+rnd(4)+"-"+rnd(4);}
+ function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){return null;}}
+ function fmt(t){return new Date(t).toLocaleString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});}
+ function localInput(t){var d=new Date(t-new Date(t).getTimezoneOffset()*6e4);return d.toISOString().slice(0,16);}
+ var DUR=[["24h","24 hours from now",864e5],["3d","3 days from now",2592e5],["7d","1 week from now",6048e5],["14d","2 weeks from now",12096e5],["30d","30 days from now",2592e6],["exams","Until the end of 12 Nov 2026",0],["none","No time limit",0],["custom","Choose date and time…",0],["end","End access now",0]];
+ function expiry(sel,custom){var now=Date.now();switch(sel){case"24h":return now+864e5;case"3d":return now+2592e5;case"7d":return now+6048e5;case"14d":return now+12096e5;case"30d":return now+2592e6;case"exams":return Date.parse("2026-11-12T23:59:00-05:00");case"none":return 0;case"end":return now-1000;case"custom":var t=Date.parse(custom);return isNaN(t)?NaN:t;}return NaN;}
+ function kek(code,use){return C.importKey("raw",TE.encode(norm(code)),"PBKDF2",false,["deriveKey"]).then(function(base){return C.deriveKey({name:"PBKDF2",salt:u8(CFG.salt),iterations:CFG.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,[use]);});}
+ function aad(x,a){return TE.encode(JSON.stringify([x,a]));}
+ function guessRepo(){var h=location.hostname,p=location.pathname.split("/").filter(Boolean);if(/\.github\.io$/.test(h)){var o=h.split(".")[0];return o+"/"+(p.length&&!/\.html?$/.test(p[0])?p[0]:o+".github.io");}return "";}
+ async function init(raw){K=raw;try{var key=await C.importKey("raw",K,"AES-GCM",false,["decrypt"]);list=[];
+   for(var j=0;j<CFG.e.length;j++){var e2=CFG.e[j],mm=u8(e2.m);var meta=JSON.parse(TD.decode(await C.decrypt({name:"AES-GCM",iv:mm.subarray(0,12)},key,mm.subarray(12))));list.push({name:meta.name,code:meta.code,x:e2.x,a:e2.a});}
+   inject();}catch(e){console.log("admin init failed",e);}}
+ function inject(){
+  var st=document.createElement("style");st.textContent=[
+   ".adm-chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 12px;font-weight:900;font-size:13px;background:var(--ink);color:var(--bg);border:0;cursor:pointer;white-space:nowrap}",
+   ".adm-ov{position:fixed;inset:0;z-index:200;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px)}",
+   ".adm-ov .credit{position:sticky;top:0;z-index:2}",
+   ".adm-in{max-width:960px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-left,0px)) 120px}",
+   ".adm-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}",
+   ".adm-top h1{font-size:30px}",
+   ".adm-card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}",
+   ".adm-card h2{font-size:21px;margin-bottom:10px}",
+   ".adm-row{display:grid;grid-template-columns:minmax(140px,1.2fr) auto minmax(150px,1fr) minmax(190px,1.2fr) auto;gap:10px;align-items:center;padding:10px 0;border-top:1.5px solid var(--line)}",
+   ".adm-row:first-of-type{border-top:0}",
+   "@media (max-width:820px){.adm-row{grid-template-columns:1fr 1fr}.adm-row .nm{grid-column:1/-1}}",
+   ".adm-code{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:.03em}",
+   ".adm-pill{display:inline-block;font-size:12px;font-weight:900;padding:3px 9px;border-radius:99px;border:1.5px solid var(--line)}",
+   ".adm-pill.ok{color:var(--good);border-color:var(--good)}.adm-pill.exp{color:var(--bad);border-color:var(--bad)}.adm-pill.t{background:var(--ink);color:var(--bg);border-color:var(--ink)}.adm-pill.new{background:var(--pop);color:var(--pop-ink);border-color:var(--pop)}",
+   ".adm-in input,.adm-in select{font:700 15px var(--f-body);padding:9px 10px;border-radius:11px;border:2px solid var(--line);background:var(--surface2);color:var(--ink);width:100%;min-width:0}",
+   ".adm-in label.l{display:block;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}",
+   ".adm-form{display:grid;grid-template-columns:1.4fr 1fr 1fr auto;gap:10px;align-items:end}",
+   "@media (max-width:720px){.adm-form{grid-template-columns:1fr}}",
+   ".adm-acts{display:flex;gap:6px;flex-wrap:wrap}",
+   ".adm-x{border:2px solid var(--line);background:var(--surface2);border-radius:10px;padding:7px 10px;font-weight:900;font-size:13px;cursor:pointer;color:var(--ink)}",
+   ".adm-x.del{border-color:var(--bad);color:var(--bad)}",
+   ".adm-save{position:fixed;left:0;right:0;bottom:0;z-index:3;background:var(--ink);color:var(--bg);padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}",
+   ".adm-save .w{max-width:960px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}",
+   ".adm-msg{font-weight:800;margin-top:8px;min-height:20px}.adm-msg.ok{color:var(--good)}.adm-msg.err{color:var(--bad)}",
+   ".adm-in ol{margin:6px 0 0;padding-left:20px;font-weight:600}.adm-in ol li{margin:3px 0}"
+  ].join("\n");document.head.appendChild(st);
+  var chips=document.querySelector(".chips");if(chips){var b=document.createElement("button");b.className="adm-chip";b.type="button";b.innerHTML="🔑 Codes";b.title="Manage access codes";b.onclick=open;chips.insertBefore(b,chips.firstChild);}
+ }
+ function open(){if(ov)ov.remove();ov=document.createElement("div");ov.className="adm-ov";ov.setAttribute("role","dialog");ov.addEventListener("keydown",function(e){e.stopPropagation();});document.body.appendChild(ov);document.body.style.overflow="hidden";draw();}
+ function close(){if(dirty&&!ov.dataset.warned){ov.dataset.warned=1;msg("You have unpublished changes. Tap Close again to discard them.","err");return;}ov.remove();ov=null;document.body.style.overflow="";}
+ function msg(t,k){var m=ov&&ov.querySelector("#admMsg");if(m){m.className="adm-msg "+(k||"");m.textContent=t;}}
+ function status(p){var now=Date.now();if(p.a)return '<span class="adm-pill t">Teacher</span>';if(!p.x)return '<span class="adm-pill ok">No time limit</span>';return p.x>now?'<span class="adm-pill ok">Until '+esc(fmt(p.x))+'</span>':'<span class="adm-pill exp">Ended '+esc(fmt(p.x))+'</span>';}
+ function draw(){var tok=ls(TK),repo=ls(RK)||guessRepo();
+  ov.innerHTML='<div class="credit">Developed by Mr. A. Agurto, 2026 V1.0</div><div class="adm-in">'+
+  '<div class="adm-top"><div><div class="eyebrow">Teacher only</div><h1>Manage access codes</h1></div><button class="btn ghost" id="admClose">Close ✕</button></div>'+
+  '<div class="adm-card"><h2>Who has access ('+list.length+')</h2>'+list.map(function(p,i){return '<div class="adm-row"><div class="nm"><b>'+esc(p.name)+'</b>'+(p.isNew?' <span class="adm-pill new">New</span>':'')+'</div><div class="adm-code">'+esc(p.code)+'</div><div>'+status(p)+'</div><div>'+(p.a?'':'<select data-ext="'+i+'"><option value="">Change access…</option>'+DUR.map(function(d){return '<option value="'+d[0]+'">'+d[1]+'</option>';}).join("")+'</select><input type="datetime-local" data-cdt="'+i+'" hidden style="margin-top:6px">')+'</div><div class="adm-acts"><button class="adm-x" data-copy="'+i+'">Copy</button>'+(p.a?'':'<button class="adm-x del" data-del="'+i+'">Remove</button>')+'</div></div>';}).join("")+'</div>'+
+  '<form class="adm-card" id="admAdd" autocomplete="off"><h2>Add a student</h2><div class="adm-form"><div><label class="l" for="admNm">Student name</label><input id="admNm" placeholder="e.g. Arantza de Argumaniz"></div><div><label class="l" for="admDur">Access lasts</label><select id="admDur">'+DUR.filter(function(d){return d[0]!=="end";}).map(function(d){return '<option value="'+d[0]+'">'+d[1]+'</option>';}).join("")+'</select></div><div id="admCw" hidden><label class="l" for="admCdt">Ends on</label><input id="admCdt" type="datetime-local"></div><button class="btn" type="submit">Create code</button></div></form>'+
+  '<div class="adm-card"><h2>Your teacher code</h2><p class="muted" style="margin:0 0 10px;font-weight:600">Make a new one if someone may have seen it. Write it down before publishing.</p><button class="adm-x" id="admNewT">Make a new teacher code</button></div>'+
+  '<div class="adm-card"><h2>Publish directly to GitHub '+(tok?'<span class="adm-pill ok">Connected</span>':'<span class="adm-pill">Not connected</span>')+'</h2>'+
+  '<p class="muted" style="margin:0 0 10px;font-weight:600">Connect once on this device and every change goes live with one tap. Without it, you download index.html and upload it to GitHub yourself.</p>'+
+  '<div class="adm-form" style="grid-template-columns:1fr 1.4fr auto"><div><label class="l" for="admRepo">Repository (owner/name)</label><input id="admRepo" value="'+esc(repo)+'" placeholder="username/biohl-study"></div><div><label class="l" for="admTok">GitHub token</label><input id="admTok" type="password" placeholder="'+(tok?"Saved on this device":"github_pat_…")+'"></div><div class="adm-acts"><button class="adm-x" id="admTokSave" type="button">Save</button>'+(tok?'<button class="adm-x del" id="admTokDel" type="button">Disconnect</button>':'')+'</div></div>'+
+  '<details style="margin-top:10px"><summary style="cursor:pointer;font-weight:800">How to get a token (2 minutes)</summary><ol><li>On github.com click your photo → <b>Settings</b> → <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</li><li>Name it "Codes", choose an expiration, and under <b>Repository access</b> pick <b>Only select repositories</b> → this app\'s repository.</li><li>Under <b>Permissions → Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b>.</li><li>Click <b>Generate token</b>, copy it, paste it above and tap Save.</li></ol><p class="muted" style="font-weight:600">The token is kept only in this browser. Use it only on your own device.</p></details></div>'+
+  '<div class="adm-msg" id="admMsg"></div></div>'+
+  '<div class="adm-save"><div class="w"><b>'+(dirty?"You have unpublished changes.":"No unpublished changes.")+'</b><div class="adm-acts"><button class="btn ghost sm" id="admDl"'+(dirty?'':' disabled')+'>Download index.html</button>'+(tok?'<button class="btn pop sm" id="admPub"'+(dirty?'':' disabled')+'>Publish changes</button>':'')+'</div></div></div>';
+  var q=function(s){return ov.querySelector(s);},qa=function(s){return Array.prototype.slice.call(ov.querySelectorAll(s));};
+  q("#admClose").onclick=close;
+  qa("[data-copy]").forEach(function(b){b.onclick=function(){var c=list[+b.dataset.copy].code;(navigator.clipboard?navigator.clipboard.writeText(c):Promise.reject()).then(function(){b.textContent="Copied";},function(){prompt("Copy this code:",c);});};});
+  qa("[data-del]").forEach(function(b){b.onclick=function(){var i=+b.dataset.del;if(b.dataset.c){list.splice(i,1);changed("Removed. Publish to make it final.");}else{b.dataset.c=1;b.textContent="Tap again to remove";}};});
+  qa("[data-ext]").forEach(function(s){s.onchange=function(){var i=+s.dataset.ext,ci=q('[data-cdt="'+i+'"]');if(s.value==="custom"){ci.hidden=false;ci.value=localInput(list[i].x>Date.now()?list[i].x:Date.now()+864e5);ci.onchange=function(){var t=expiry("custom",ci.value);if(!isNaN(t)){list[i].x=t;changed("Access for "+list[i].name+" now ends "+fmt(t)+".");}};return;}if(!s.value)return;list[i].x=expiry(s.value);changed(s.value==="end"?"Access for "+list[i].name+" ended.":"Access for "+list[i].name+" updated.");};});
+  q("#admDur").onchange=function(){q("#admCw").hidden=q("#admDur").value!=="custom";if(q("#admDur").value==="custom")q("#admCdt").value=localInput(Date.now()+864e5);};
+  q("#admAdd").onsubmit=function(e){e.preventDefault();var nm=q("#admNm").value.trim();if(!nm){msg("Type the student's name first.","err");return;}var x=expiry(q("#admDur").value,q("#admCdt").value);if(isNaN(x)){msg("Pick a date and time.","err");return;}var code=makeCode(nm);list.push({name:nm,code:code,x:x,a:0,isNew:1});changed("Code for "+nm+": "+code+" (it works once you publish).");};
+  q("#admNewT").onclick=function(){var t=list.filter(function(p){return p.a;})[0];if(!t)return;t.code="PROF-"+rnd(4)+"-"+rnd(4)+"-"+rnd(4);changed("New teacher code: "+t.code+". Write it down now! The old one stops working after you publish.");};
+  q("#admTokSave").onclick=function(){var t=q("#admTok").value.trim(),r=q("#admRepo").value.trim();if(r)ls(RK,r);if(t)ls(TK,t);var m=dirty;draw();msg(t?"Token saved on this device.":"Repository saved.","ok");};
+  if(q("#admTokDel"))q("#admTokDel").onclick=function(){ls(TK,null);draw();msg("Disconnected from GitHub on this device.","ok");};
+  q("#admDl").onclick=download;if(q("#admPub"))q("#admPub").onclick=publish;
+ }
+ function changed(t){dirty=true;draw();msg(t,"ok");}
+ async function build(){
+  if(!SRC){var r=await fetch("index.html?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("Couldn't read index.html from the site.");SRC=await r.text();}
+  var i=SRC.indexOf(MK1),j=SRC.indexOf(MK2);if(i<0||j<0)throw new Error("index.html has an unexpected format.");
+  var key=await C.importKey("raw",K,"AES-GCM",false,["encrypt"]),e=[];
+  for(var n=0;n<list.length;n++){var p=list[n];var kk=await kek(p.code,"encrypt");var iv=crypto.getRandomValues(new Uint8Array(12));
+   var w=await C.encrypt({name:"AES-GCM",iv:iv,additionalData:aad(p.x,p.a)},kk,K);var iv2=crypto.getRandomValues(new Uint8Array(12));
+   var m=await C.encrypt({name:"AES-GCM",iv:iv2},key,TE.encode(JSON.stringify({name:p.name,code:p.code})));e.push({w:b64(cat(iv,w)),x:p.x,a:p.a,m:b64(cat(iv2,m))});}
+  var cfg=JSON.parse(JSON.stringify(CFG));cfg.e=e;
+  return {text:SRC.slice(0,i+MK1.length)+JSON.stringify(cfg)+SRC.slice(j),cfg:cfg};
+ }
+ function done(cfg,t){CFG.e=cfg.e;dirty=false;list.forEach(function(p){delete p.isNew;});draw();msg(t,"ok");}
+ async function download(){if(busy)return;busy=true;msg("Building…");try{var r=await build();var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([r.text],{type:"text/html"}));a.download="index.html";document.body.appendChild(a);a.click();a.remove();
+   done(r.cfg,"Downloaded. Now upload index.html to your GitHub repository (Add file → Upload files → Commit changes). Live 1–2 minutes later.");}catch(e){msg(e.message||"Something went wrong.","err");}busy=false;}
+ async function publish(){if(busy)return;busy=true;var tok=ls(TK),repo=(ls(RK)||guessRepo()).replace(/^\/+|\/+$/g,"");
+  if(!repo||repo.indexOf("/")<0){msg("Type your repository as owner/name and tap Save.","err");busy=false;return;}
+  msg("Publishing…");try{var r=await build();var api="https://api.github.com/repos/"+repo+"/contents/index.html",h={"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json"};
+   var put=async function(){var g=await fetch(api+"?t="+Date.now(),{headers:h,cache:"no-store"});if(g.status===401)throw new Error("GitHub rejected the token. Make a new one and save it again.");if(g.status===404)throw new Error("Repository not found, or the token can't access it. Check owner/name and the token's repository access.");if(!g.ok)throw new Error("GitHub error "+g.status+".");var cur=await g.json();
+     return fetch(api,{method:"PUT",headers:Object.assign({"Content-Type":"application/json"},h),body:JSON.stringify({message:"Update access codes",content:b64(TE.encode(r.text)),sha:cur.sha})});};
+   var res=await put();if(res.status===409||res.status===422)res=await put();
+   if(res.status===403)throw new Error("The token doesn't have permission to write. Set Contents to Read and write.");if(!res.ok)throw new Error("GitHub error "+res.status+". Try again, or use Download.");
+   done(r.cfg,"Published! Changes go live in 1–2 minutes.");}catch(e){msg(e.message||"Couldn't reach GitHub. Try again, or use Download.","err");}busy=false;}
+ return {init:init};
+})();
+
+function u8(b){var s=atob(b),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a;}
+function norm(c){return String(c).toUpperCase().replace(/[^A-Z0-9]/g,"");}
+var dataP=null;
+function getData(){if(!dataP)dataP=Promise.all(CFG.parts.map(function(p){return fetch(p+"?v="+CFG.ver).then(function(r){if(!r.ok)throw new Error("missing "+p);return r.arrayBuffer();});})).then(function(bs){var n=0;bs.forEach(function(b){n+=b.byteLength;});var a=new Uint8Array(n),o=0;bs.forEach(function(b){a.set(new Uint8Array(b),o);o+=b.byteLength;});return a;});return dataP;}
+async function serverNow(){try{var r=await fetch("index.html?t="+Date.now(),{method:"HEAD",cache:"no-store"});var d=Date.parse(r.headers.get("date"));if(d)return d;}catch(e){}return Date.now();}
+async function findEntry(code){
+  var C=crypto.subtle;
+  var base=await C.importKey("raw",new TextEncoder().encode(norm(code)),"PBKDF2",false,["deriveKey"]);
+  var kek=await C.deriveKey({name:"PBKDF2",salt:u8(CFG.salt),iterations:CFG.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+  for(var i=0;i<CFG.e.length;i++){var en=CFG.e[i],w=u8(en.w);
+    try{var raw=await C.decrypt({name:"AES-GCM",iv:w.subarray(0,12),additionalData:new TextEncoder().encode(JSON.stringify([en.x,en.a]))},kek,w.subarray(12));return {raw:raw,x:en.x,a:en.a,i:i};}catch(e){}}
+  return null;
+}
+async function openApp(raw){
+  var C=crypto.subtle;var key=await C.importKey("raw",raw,"AES-GCM",false,["decrypt"]);
+  var buf=new Uint8Array(await C.decrypt({name:"AES-GCM",iv:u8(CFG.iv)},key,await getData()));
+  var hl=new DataView(buf.buffer).getUint32(0);var hdr=JSON.parse(new TextDecoder().decode(buf.subarray(4,4+hl)));
+  var start=4+hl,html=new TextDecoder().decode(buf.subarray(start,start+hdr.htmlLen)),base=start+hdr.htmlLen,imgs={};
+  Object.keys(hdr.imgs).forEach(function(k){var r=hdr.imgs[k];imgs[k]=URL.createObjectURL(new Blob([buf.subarray(base+r[0],base+r[0]+r[1])],{type:"image/webp"}));});
+  window.__IMGS=imgs;return html;
+}
+function fmt(t){return new Date(t).toLocaleString(undefined,{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});}
+var f=document.getElementById("f"),inp=document.getElementById("code"),msg=document.getElementById("msg"),btn=document.getElementById("go");
+function fail(t){btn.disabled=false;btn.textContent="Unlock · Entrar";msg.textContent=t;inp.focus();}
+async function attempt(code,remember){
+  btn.disabled=true;btn.textContent="Opening… · Abriendo…";msg.textContent="";
+  try{await getData();}catch(e){dataP=null;return fail("Couldn't download the app. Check your connection. · No se pudo descargar la app. Revisa tu conexión.");}
+  var ent=null;try{ent=await findEntry(code);}catch(e){}
+  if(!ent){try{localStorage.removeItem(KEY);}catch(e){}return fail("That code didn't work. · Ese código no funciona.");}
+  if(ent.x){var now=await serverNow();if(now>=ent.x){try{localStorage.removeItem(KEY);}catch(e){}return fail("Your access ended on "+fmt(ent.x)+". · Tu acceso terminó. Contact / Contacta a Mr. A. Agurto.");}}
+  var html=null;try{html=await openApp(ent.raw);}catch(e){}
+  if(!html)return fail("Something went wrong. Reload the page. · Algo salió mal. Recarga la página.");
+  try{remember?localStorage.setItem(KEY,code):localStorage.removeItem(KEY);}catch(e){}
+  if(ent.x){var left=ent.x-Date.now();if(left<2147483000)setTimeout(function(){location.reload();},Math.max(left,1000));}
+  var nm="";try{var kk=await crypto.subtle.importKey("raw",ent.raw,"AES-GCM",false,["decrypt"]);var mm=u8(CFG.e[ent.i].m);nm=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:mm.subarray(0,12)},kk,mm.subarray(12)))).name;}catch(e){}
+  window.__ACCESS={x:ent.x||0,a:ent.a||0,name:nm};
+  document.open();document.write(html);document.close();
+  if(ent.a)setTimeout(function(){Admin.init(ent.raw);},50);
+}
+f.addEventListener("submit",function(e){e.preventDefault();var c=inp.value.trim();if(!c){msg.textContent="Type your access code first. · Escribe primero tu código.";return;}attempt(c,document.getElementById("rem").checked);});
+if(!window.crypto||!crypto.subtle){msg.textContent="This browser can't open the app. Please use an up-to-date Chrome, Safari, Edge or Firefox.";btn.disabled=true;return;}
+getData().catch(function(){});
+var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
+if(saved){inp.value=saved;attempt(saved,true);}else inp.focus();
+})();
+</script>
+</body>
+</html>

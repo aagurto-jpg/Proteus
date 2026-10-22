@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Proteus · Access codes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@700&display=swap">
+<style>
+:root{--bg:#EEF4F1;--surface:#fff;--surface2:#F6FAF8;--ink:#11211C;--muted:#56685F;--line:#D5E2DB;--brand:#0B7A63;--pop:#FFC21A;--bad:#E5383B;--good:#12A150;--warn:#C98A00}
+@media (prefers-color-scheme:dark){:root{--bg:#0B1513;--surface:#13221E;--surface2:#182A25;--ink:#E7F2EC;--muted:#99B0A6;--line:#263B34;--brand:#23B48F;--pop:#FFCB3D;--bad:#FF5C5F;--good:#33C873;--warn:#FFC23D;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:16px}
+.credit{background:var(--ink);color:var(--bg);font-size:12.5px;font-weight:800;letter-spacing:.04em;text-align:center;padding:5px 16px}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 60px}
+h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:34px;margin:0 0 4px}
+h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:22px;margin:0 0 10px}
+p{margin:0 0 14px;color:var(--muted);font-weight:600}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:18px;margin-top:16px}
+label{display:block;font-weight:900;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+input,select{font:700 16px Nunito,system-ui,sans-serif;padding:11px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface2);color:var(--ink);width:100%}
+input.code{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.05em}
+button{border:0;border-radius:12px;padding:11px 16px;font:900 15px Nunito,system-ui,sans-serif;background:var(--brand);color:#fff;cursor:pointer}
+button.ghost{background:var(--surface2);color:var(--ink);border:2px solid var(--line)}
+button.danger{background:var(--bad)}
+button.pop{background:var(--pop);color:#2b1f00}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.row>div{flex:1;min-width:180px}
+.msg{font-weight:800;margin-top:10px;min-height:22px}
+.msg.err{color:var(--bad)} .msg.ok{color:var(--good)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px}
+td{padding:10px 6px;border-top:1.5px solid var(--line);vertical-align:middle}
+td.code{font-family:"JetBrains Mono",monospace;font-weight:700;white-space:nowrap}
+.tw{overflow-x:auto}
+.pill{display:inline-block;font-size:12px;font-weight:900;padding:2px 8px;border-radius:99px;border:1.5px solid var(--line)}
+.pill.ok{color:var(--good);border-color:var(--good)} .pill.exp{color:var(--bad);border-color:var(--bad)} .pill.t{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.acts button{padding:7px 10px;font-size:13px}
+.save{position:sticky;bottom:12px;background:var(--ink);color:var(--bg);border-radius:16px;padding:14px 16px;margin-top:16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.save b{font-size:16px}
+ol{margin:6px 0 0;padding-left:20px;font-weight:700}
+ol li{margin:4px 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="credit">Developed by Mr. A. Agurto, 2026 V1.0</div>
+<div class="wrap">
+  <h1>Access code manager</h1>
+  <p>AXIS-Y: Proteus (IB Chemistry) · private edition. Only the teacher code can open this page.</p>
+
+  <form class="card" id="login" autocomplete="off">
+    <label for="tcode">Teacher code</label>
+    <div class="row"><div><input id="tcode" class="code" type="password" placeholder="PROF-XXXX-XXXX-XXXX"></div><button type="submit" id="lbtn">Open manager</button></div>
+    <div class="msg" id="lmsg"></div>
+  </form>
+
+  <div id="panel" hidden>
+    <div class="card">
+      <h2>Who has access</h2>
+      <div class="tw"><table><thead><tr><th>Name</th><th>Code</th><th>Access</th><th></th></tr></thead><tbody id="tb"></tbody></table></div>
+    </div>
+
+    <form class="card" id="addf" autocomplete="off">
+      <h2>Give a student access</h2>
+      <div class="row">
+        <div><label for="nm">Student name</label><input id="nm" placeholder="e.g. Arantza de Argumaniz" required></div>
+        <div><label for="dur">Access lasts</label><select id="dur"></select></div>
+        <div id="cwrap" hidden><label for="cdt">Ends on</label><input id="cdt" type="datetime-local"></div>
+      </div>
+      <div class="row" style="margin-top:12px"><button type="submit">Create code</button></div>
+      <div class="msg" id="amsg"></div>
+    </form>
+
+    <div class="card">
+      <h2>Your teacher code</h2>
+      <p>Change it if you think someone has seen it. The new one starts working after you upload the new index.html.</p>
+      <button class="ghost" id="newT">Make a new teacher code</button>
+      <div class="msg ok" id="tmsg"></div>
+    </div>
+
+    <div class="save" id="savebar" hidden>
+      <b id="savetxt">You have unsaved changes.</b>
+      <button class="pop" id="dl">Download new index.html</button>
+    </div>
+
+    <div class="card" id="howto" hidden>
+      <h2>Last step: upload it to GitHub</h2>
+      <ol>
+        <li>Open your repository on github.com.</li>
+        <li>Click <b>Add file → Upload files</b> and drag in the <b>index.html</b> you just downloaded. Check the name is exactly <b>index.html</b>; if your computer saved it as "index (1).html", rename it first.</li>
+        <li>Click <b>Commit changes</b>. GitHub replaces the old file.</li>
+        <li>Wait 1–2 minutes. The new codes and time limits are then live. Removed codes stop working, even on devices where they were remembered.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s);};
+var C=crypto.subtle, TE=new TextEncoder(), TD=new TextDecoder();
+var SRC="", CFG=null, K=null, list=[], dirty=false;
+function u8(b){var s=atob(b),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a;}
+function b64(a){a=new Uint8Array(a);var s="";for(var i=0;i<a.length;i+=8192)s+=String.fromCharCode.apply(null,a.subarray(i,i+8192));return btoa(s);}
+function cat(a,b){var r=new Uint8Array(a.length+b.byteLength);r.set(a);r.set(new Uint8Array(b),a.length);return r;}
+function norm(c){return String(c).toUpperCase().replace(/[^A-Z0-9]/g,"");}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function fmt(t){return new Date(t).toLocaleString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});}
+async function kekFor(code,use){var base=await C.importKey("raw",TE.encode(norm(code)),"PBKDF2",false,["deriveKey"]);return C.deriveKey({name:"PBKDF2",salt:u8(CFG.salt),iterations:CFG.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,[use]);}
+function aad(x,a){return TE.encode(JSON.stringify([x,a]));}
+function rnd(n){var A="ABCDEFGHJKMNPQRSTUVWXYZ23456789",v=crypto.getRandomValues(new Uint8Array(n)),s="";for(var i=0;i<n;i++)s+=A[v[i]%A.length];return s;}
+function makeCode(name){var p=norm((name||"").split(/\s+/)[0]).slice(0,8)||"STUDENT";return p+"-"+rnd(4)+"-"+rnd(4)+"-"+rnd(4);}
+var DUR=[["24h","24 hours from now",864e5],["3d","3 days from now",3*864e5],["7d","1 week from now",7*864e5],["14d","2 weeks from now",14*864e5],["30d","30 days from now",30*864e5],["exams","Until the end of 12 Nov 2026",Date.parse("2026-11-12T23:59:00-05:00")],["none","No time limit",0],["custom","Choose a date and time…",-1]];
+$("#dur").innerHTML=DUR.map(function(d){return '<option value="'+d[0]+'">'+d[1]+'</option>';}).join("");
+$("#dur").onchange=function(){$("#cwrap").hidden=$("#dur").value!=="custom";};
+function expiryFrom(sel,custom){var d=DUR.filter(function(x){return x[0]===sel;})[0];if(!d)return 0;if(d[0]==="exams")return d[2];if(d[0]==="none")return 0;if(d[0]==="custom"){var t=Date.parse(custom);return isNaN(t)?NaN:t;}return Date.now()+d[2];}
+
+async function load(){
+  var r=await fetch("index.html?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("index");
+  SRC=await r.text();var m=SRC.match(/\/\*CFG-START\*\/([\s\S]*?)\/\*CFG-END\*\//);if(!m)throw new Error("cfg");CFG=JSON.parse(m[1]);
+}
+$("#login").addEventListener("submit",async function(e){e.preventDefault();var msg=$("#lmsg");msg.className="msg";msg.textContent="Checking…";$("#lbtn").disabled=true;
+  try{if(!CFG)await load();}catch(err){msg.className="msg err";msg.textContent="Couldn't read index.html from this site. Open this page from your GitHub Pages link, not from your computer.";$("#lbtn").disabled=false;return;}
+  try{var kek=await kekFor($("#tcode").value,"decrypt");K=null;
+    for(var i=0;i<CFG.e.length;i++){var en=CFG.e[i];if(!en.a)continue;var w=u8(en.w);try{K=await C.decrypt({name:"AES-GCM",iv:w.subarray(0,12),additionalData:aad(en.x,en.a)},kek,w.subarray(12));break;}catch(x){}}
+    if(!K)throw 0;
+    var key=await C.importKey("raw",K,"AES-GCM",false,["decrypt"]);
+    list=[];for(var j=0;j<CFG.e.length;j++){var e2=CFG.e[j],mm=u8(e2.m);var meta=JSON.parse(TD.decode(await C.decrypt({name:"AES-GCM",iv:mm.subarray(0,12)},key,mm.subarray(12))));list.push({name:meta.name,code:meta.code,x:e2.x,a:e2.a});}
+    $("#login").hidden=true;$("#panel").hidden=false;draw();
+  }catch(err){msg.className="msg err";msg.textContent="That isn't the teacher code.";$("#lbtn").disabled=false;}
+});
+function draw(){var now=Date.now();
+  $("#tb").innerHTML=list.map(function(p,i){var st=p.a?'<span class="pill t">Teacher</span>':!p.x?'<span class="pill ok">No time limit</span>':p.x>now?'<span class="pill ok">Until '+esc(fmt(p.x))+'</span>':'<span class="pill exp">Ended '+esc(fmt(p.x))+'</span>';
+    return '<tr><td><b>'+esc(p.name)+'</b></td><td class="code">'+esc(p.code)+'</td><td>'+st+'</td><td><div class="acts"><button class="ghost" data-copy="'+i+'">Copy</button>'+(p.a?'':'<select data-ext="'+i+'" style="width:auto;padding:6px 8px;font-size:13px"><option value="">Change access…</option>'+DUR.filter(function(d){return d[0]!=="custom";}).map(function(d){return '<option value="'+d[0]+'">'+d[1]+'</option>';}).join("")+'<option value="end">End access now</option></select><button class="danger" data-del="'+i+'">Remove</button>')+'</div></td></tr>';}).join("");
+  Array.prototype.forEach.call(document.querySelectorAll("[data-copy]"),function(b){b.onclick=function(){var c=list[+b.dataset.copy].code;navigator.clipboard.writeText(c).then(function(){b.textContent="Copied";},function(){prompt("Copy this code:",c);});};});
+  Array.prototype.forEach.call(document.querySelectorAll("[data-del]"),function(b){b.onclick=function(){var p=list[+b.dataset.del];if(!confirm("Remove access for "+p.name+"?"))return;list.splice(+b.dataset.del,1);changed();};});
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ext]"),function(s){s.onchange=function(){if(!s.value)return;var p=list[+s.dataset.ext];p.x=s.value==="end"?Date.now()-1000:expiryFrom(s.value);changed();};});
+  $("#savebar").hidden=!dirty;
+}
+function changed(){dirty=true;$("#howto").hidden=true;$("#savetxt").textContent="You have unsaved changes. Download the new index.html and upload it to GitHub.";draw();}
+$("#addf").addEventListener("submit",function(e){e.preventDefault();var nm=$("#nm").value.trim();var x=expiryFrom($("#dur").value,$("#cdt").value);var am=$("#amsg");
+  if(isNaN(x)){am.className="msg err";am.textContent="Pick a date and time for the custom limit.";return;}
+  var code=makeCode(nm);list.push({name:nm,code:code,x:x,a:0});am.className="msg ok";am.textContent="Code for "+nm+": "+code+" (send it to them after you upload the new file).";$("#nm").value="";changed();});
+$("#newT").onclick=function(){var t=list.filter(function(p){return p.a;})[0];if(!t)return;t.code="PROF-"+rnd(4)+"-"+rnd(4)+"-"+rnd(4);$("#tmsg").textContent="New teacher code: "+t.code+". Write it down before you leave this page!";changed();};
+$("#dl").onclick=async function(){var b=this;b.disabled=true;b.textContent="Building…";
+  try{var key=await C.importKey("raw",K,"AES-GCM",false,["encrypt"]);var e=[];
+    for(var i=0;i<list.length;i++){var p=list[i];var kek=await kekFor(p.code,"encrypt");var iv=crypto.getRandomValues(new Uint8Array(12));
+      var w=await C.encrypt({name:"AES-GCM",iv:iv,additionalData:aad(p.x,p.a)},kek,K);var iv2=crypto.getRandomValues(new Uint8Array(12));
+      var m=await C.encrypt({name:"AES-GCM",iv:iv2},key,TE.encode(JSON.stringify({name:p.name,code:p.code})));
+      e.push({w:b64(cat(iv,w)),x:p.x,a:p.a,m:b64(cat(iv2,m))});}
+    var cfg=Object.assign({},CFG,{e:e});var out=SRC.replace(/\/\*CFG-START\*\/[\s\S]*?\/\*CFG-END\*\//,"/*CFG-START*/"+JSON.stringify(cfg)+"/*CFG-END*/");
+    var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([out],{type:"text/html"}));a.download="index.html";document.body.appendChild(a);a.click();a.remove();
+    $("#howto").hidden=false;$("#savetxt").textContent="Downloaded. Now upload it to GitHub (steps below).";$("#howto").scrollIntoView({behavior:"smooth"});
+  }catch(err){alert("Something went wrong building the file. Reload the page and try again.");}
+  b.disabled=false;b.textContent="Download new index.html";};
+window.addEventListener("beforeunload",function(e){if(dirty&&$("#howto").hidden){e.preventDefault();e.returnValue="";}});
+})();
+</script>
+</body>
+</html>
